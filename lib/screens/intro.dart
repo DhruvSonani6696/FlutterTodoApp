@@ -10,13 +10,24 @@ class Intro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IntroductionScreen(
+      globalBackgroundColor: Colors.white,
       showNextButton: true,
       showDoneButton: true,
       showSkipButton: false,
+      done: const Text('Done'),
+      onDone: () {},
+      next: const Icon(Icons.arrow_forward),
       pages: [
         PageViewModel(
-            image: SvgPicture.asset('assests/inro.svg'),
-            title: 'ToDo Application')
+            image: SvgPicture.asset('assets/intro.svg'),
+            title: 'ToDo Application',
+            body:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris accumsan nec sem auctor mollis. Suspendisse imperdiet, risus suscipit aliquam consectetur'),
+        PageViewModel(
+            image: SvgPicture.asset('assets/intro1.svg'),
+            title: 'ToDo Application',
+            body:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris accumsan nec sem auctor mollis. Suspendisse imperdiet, risus suscipit aliquam consectetur'),
       ],
     );
   }
