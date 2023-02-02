@@ -5,14 +5,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:fluttertodoapp/screens/intro.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  //WidgetsFlutterBinding.ensureInitialized();
   //await Firebase
   await Firebase.initializeApp(
-    options: FirebaseOptions(
-      apiKey: "XXX",
-      appId: "XXX",
-      messagingSenderId: "XXX",
-      projectId: "XXX",
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyDAeoqIxVholNdUwSjKeKWO0Ims9_LEqI4",
+      appId: "1:549417096314:android:a049dca4ad958e17bb97c3",
+      messagingSenderId: "549417096314",
+      projectId: "todo-yt-b1007",
     ),
   );
   runApp(const MyApp());
