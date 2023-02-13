@@ -17,7 +17,7 @@ class Intro extends StatelessWidget {
       showDoneButton: true,
       showSkipButton: false,
       done: const Text('Done'),
-      onDone: () => Get.to(()=> const Home()),
+      onDone: () => Get.to(() => const Home()),
       next: const Icon(Icons.arrow_forward),
       pages: [
         PageViewModel(
@@ -30,7 +30,7 @@ class Intro extends StatelessWidget {
         ),
         PageViewModel(
           image: SvgPicture.asset('assets/intro1.svg'),
-          title: 'ToDo Easy to Use',
+          title: 'ToDo Easy Application to Use',
           body:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris accumsan nec sem auctor mollis. Suspendisse imperdiet, risus suscipit aliquam consectetur',
           decoration:

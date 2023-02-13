@@ -19,38 +19,53 @@ class _HomeState extends State<Home> {
   TextEditingController _taskController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final todoController = Get.find<TodoController>();
-
-    return Scaffold(
-        body: const Center(
-          child: Text('Home Screen'),
-        ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () => Get.defaultDialog(
-            title: 'Add your todo',
-            content: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  TextFormField(
-                    controller: _taskController,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'field can not be empty';
-                      }
-                      return null;
-                    },
-                  ),
-                  ElevatedButton(
-                    onPressed: () async => await todoController.addTodo(
-                        _taskController.text.trim(), false),
-                    child: const Text('Save'),
-                  ),
-                ],
-              ),
+    return GetBuilder<TodoController>(
+      init: TodoController(),
+      initState: (_) {},
+      builder: (todoController) {
+        todoController.getData();
+        return Scaffold(
+            body: Center(
+              child: todoController.isLoading
+                  ? const SizedBox(
+                      child: CircularProgressIndicator(),
+                    )
+                  : ListView.builder(
+                        itemCount: todoController.taskList.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(todoController.taskList[index].task),
+                        );
+                      }),
             ),
-          ),
-        ));
+            floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () => Get.defaultDialog(
+                title: 'Add your todo',
+                content: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: _taskController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'field can not be empty';
+                          }
+                          return null;
+                        },
+                      ),
+                      ElevatedButton(
+                        onPressed: () async => await todoController.addTodo(
+                            _taskController.text.trim(), false),
+                        child: const Text('Save'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ));
+      },
+    );
   }
 }
