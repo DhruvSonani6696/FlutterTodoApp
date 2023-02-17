@@ -21,7 +21,7 @@ class TodoController extends GetxController {
       },
       SetOptions(merge: true),
     ).then(
-      (value) => Get.back(),
+      (value) => getData(),
     );
   }
 
