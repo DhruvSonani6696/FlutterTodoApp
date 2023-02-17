@@ -13,7 +13,7 @@ class TodoController extends GetxController {
 //    print('todo');
     await FirebaseFirestore.instance
         .collection('fluttertodoappDhruv')
-        .doc(id.isNotEmpty ? id : '')
+        .doc(id != '' ? id : null)
         .set(
       {
         'task': task,
@@ -40,5 +40,12 @@ class TodoController extends GetxController {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  void deleteTask(String id) {
+    FirebaseFirestore.instance
+        .collection('fluttertodoappDhruv')
+        .doc(id)
+        .delete();
   }
 }

@@ -48,7 +48,8 @@ class _HomeState extends State<Home> {
                                   icon: const Icon(Icons.edit),
                                 ),
                                 IconButton(
-                                  onPressed: () => print('delete'),
+                                  onPressed: () => todoController.deleteTask(
+                                      todoController.taskList[index].id),
                                   icon: const Icon(Icons.delete),
                                   color: Colors.red,
                                 )
@@ -89,8 +90,12 @@ class _HomeState extends State<Home> {
               },
             ),
             ElevatedButton(
-              onPressed: () async => await todoController.addTodo(
-                  _taskController.text.trim(), false, id),
+              onPressed: () async {
+                await todoController.addTodo(
+                    _taskController.text.trim(), false, id);
+
+                _taskController.clear();
+              },
               child: const Text('Save'),
             ),
           ],
