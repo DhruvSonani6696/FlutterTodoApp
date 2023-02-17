@@ -9,11 +9,11 @@ import 'package:fluttertodoapp/models/task_model.dart';
 class TodoController extends GetxController {
   var isLoading = false;
   var taskList = <TaskModel>[];
-  Future<void> addTodo(String task, bool done) async {
+  Future<void> addTodo(String task, bool done, String id) async {
 //    print('todo');
     await FirebaseFirestore.instance
         .collection('fluttertodoappDhruv')
-        .doc()
+        .doc(id.isNotEmpty ? id : '')
         .set(
       {
         'task': task,
@@ -33,7 +33,7 @@ class TodoController extends GetxController {
           .get();
       taskList.clear();
       for (var item in _taskSnap.docs) {
-        taskList.add(TaskModel(item['task'], item['isDone']));
+        taskList.add(TaskModel(item.id, item['task'], item['isDone']));
       }
       isLoading = false;
       update();

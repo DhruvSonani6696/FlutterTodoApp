@@ -31,41 +31,71 @@ class _HomeState extends State<Home> {
                       child: CircularProgressIndicator(),
                     )
                   : ListView.builder(
-                        itemCount: todoController.taskList.length,
+                      itemCount: todoController.taskList.length,
                       itemBuilder: (context, index) {
                         return ListTile(
                           title: Text(todoController.taskList[index].task),
+                          trailing: SizedBox(
+                            width: 80,
+                            child: Row(
+                              children: [
+                                IconButton(
+                                  onPressed: () => addTaskDialog(
+                                      todoController,
+                                      'Update Task',
+                                      todoController.taskList[index].id,
+                                      todoController.taskList[index].task),
+                                  icon: const Icon(Icons.edit),
+                                ),
+                                IconButton(
+                                  onPressed: () => print('delete'),
+                                  icon: const Icon(Icons.delete),
+                                  color: Colors.red,
+                                )
+                              ],
+                            ),
+                          ),
                         );
                       }),
             ),
             floatingActionButton: FloatingActionButton(
               child: Icon(Icons.add),
-              onPressed: () => Get.defaultDialog(
-                title: 'Add your todo',
-                content: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        controller: _taskController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'field can not be empty';
-                          }
-                          return null;
-                        },
-                      ),
-                      ElevatedButton(
-                        onPressed: () async => await todoController.addTodo(
-                            _taskController.text.trim(), false),
-                        child: const Text('Save'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              onPressed: () async =>
+                  await addTaskDialog(todoController, 'Add ToDo', '', ''),
             ));
       },
+    );
+  }
+
+  Future<dynamic> addTaskDialog(
+      TodoController todoController, String title, String id, String task) {
+    if (task.isNotEmpty) {
+      _taskController.text = task;
+    }
+
+    return Get.defaultDialog(
+      title: title,
+      content: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            TextFormField(
+              controller: _taskController,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'field can not be empty';
+                }
+                return null;
+              },
+            ),
+            ElevatedButton(
+              onPressed: () async => await todoController.addTodo(
+                  _taskController.text.trim(), false, id),
+              child: const Text('Save'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
