@@ -90,7 +90,7 @@ class _HomeState extends State<Home> {
               controller: _taskController,
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'field can not be empty';
+                  return 'field can not be empty or null';
                 }
                 return null;
               },
